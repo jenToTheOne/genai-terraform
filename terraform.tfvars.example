@@ -1,0 +1,9 @@
+# Example terraform.tfvars file
+# Copy this to terraform.tfvars and customize as needed
+
+resource_group_name = "rg-ocbc-genai"
+location           = "Southeast Asia"
+environment        = "development"
+project_name       = "ocbc-genai-scripts"
+admin_username     = "adminuser"
+vm_size           = "Standard_B2s"
