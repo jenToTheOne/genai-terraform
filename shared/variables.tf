@@ -1,13 +1,13 @@
 variable "resource_group_name" {
   description = "Name of the resource group"
   type        = string
-  default     = "rg-terraform-demo"
+  default     = "rg-ocbc-genai"
 }
 
 variable "location" {
   description = "Azure region for resources"
   type        = string
-  default     = "East US"
+  default     = "Southeast Asia"
 }
 
 variable "environment" {
@@ -19,17 +19,16 @@ variable "environment" {
 variable "project_name" {
   description = "Name of the project"
   type        = string
-  default     = "terraform-demo"
+  default     = "ocbc-genai"
 }
 
-variable "admin_username" {
-  description = "Admin username for virtual machine"
-  type        = string
-  default     = "azureuser"
-}
-
-variable "vm_size" {
-  description = "Size of the virtual machine"
-  type        = string
-  default     = "Standard_B1s"
+variable "tags" {
+  description = "Common tags for all resources"
+  type        = map(string)
+  default = {
+    Environment = "dev"
+    Project     = "OCBC-GenAI"
+    Owner       = "OCBC"
+    CostCenter  = "IT"
+  }
 }

@@ -1,0 +1,16 @@
+# AKS Configuration Example
+# Copy this to terraform.tfvars and customize
+
+project_name       = "ocbc-genai"
+location          = "Southeast Asia"
+environment       = "dev"
+kubernetes_version = "1.28.9"
+node_count        = 2
+node_vm_size      = "Standard_D2s_v3"
+
+tags = {
+  Environment = "dev"
+  Project     = "OCBC-GenAI-AKS"
+  Owner       = "OCBC"
+  CostCenter  = "IT"
+}

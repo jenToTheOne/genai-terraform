@@ -1,108 +1,162 @@
-# Terraform Project
+# OCBC GenAI Terraform Infrastructure
 
-This Terraform project creates basic Azure infrastructure including a resource group, virtual network, and subnet.
+This repository contains Terraform configurations for deploying Azure infrastructure components for OCBC's GenAI initiative. The infrastructure is organized into separate modules for different Azure services.
 
-## Prerequisites
+## 🏗️ Project Structure
 
-1. **Azure CLI**: Install and configure the Azure CLI
+```
+├── terraform-aks/           # Azure Kubernetes Service (AKS)
+├── terraform-apim/          # Azure API Management
+├── terraform-app-gateway/   # Azure Application Gateway
+├── terraform-ai-services/   # Azure AI Services (Foundry & ML)
+├── shared/                  # Shared configurations
+└── README.md               # This file
+```
+
+## 📋 Prerequisites
+
+1. **Azure CLI**: Install and configure
+   ```bash
+   az login
+   az account set --subscription "your-subscription-id"
+   ```
+
 2. **Terraform**: Install Terraform (version 1.0 or later)
-3. **Azure Subscription**: Ensure you have access to an Azure subscription
+   - Download from [terraform.io](https://www.terraform.io/downloads.html)
 
-## Setup Instructions
+3. **Azure Subscription**: Ensure you have contributor access
 
-### 1. Install Terraform
-Download and install Terraform from [terraform.io](https://www.terraform.io/downloads.html)
+## 🚀 Deployment Options
 
-### 2. Azure Authentication
-Login to Azure using the Azure CLI:
+### Option 1: Deploy Individual Services
+
+Navigate to each service directory and deploy independently:
+
 ```bash
-az login
+# Deploy AKS
+cd terraform-aks
+terraform init
+terraform plan
+terraform apply
+
+# Deploy API Management
+cd ../terraform-apim
+terraform init
+terraform plan
+terraform apply
+
+# Deploy Application Gateway
+cd ../terraform-app-gateway
+terraform init
+terraform plan
+terraform apply
+
+# Deploy AI Services
+cd ../terraform-ai-services
+terraform init
+terraform plan
+terraform apply
 ```
 
-Set your subscription (if you have multiple):
-```bash
-az account set --subscription "your-subscription-id"
-```
+## 🔧 Services Overview
 
-### 3. Configure Variables
-1. Copy the example variables file:
-   ```bash
-   copy terraform.tfvars.example terraform.tfvars
-   ```
+### 1. Azure Kubernetes Service (AKS) - `terraform-aks/`
+- **Purpose**: Container orchestration platform
+- **Components**:
+  - AKS cluster with auto-scaling
+  - Virtual network and subnet
+  - Log Analytics workspace
+  - System-assigned managed identity
+- **Network**: 10.1.0.0/16
 
-2. Edit `terraform.tfvars` with your desired values:
-   ```hcl
-   resource_group_name = "your-resource-group-name"
-   location           = "East US"
-   environment        = "dev"
-   project_name       = "your-project-name"
-   ```
+### 2. Azure API Management - `terraform-apim/`
+- **Purpose**: API gateway and management platform
+- **Components**:
+  - API Management instance
+  - Application Insights integration
+  - Virtual network integration
+  - Sample API configuration
+- **Network**: 10.2.0.0/16
 
-### 4. Deploy Infrastructure
+### 3. Azure Application Gateway - `terraform-app-gateway/`
+- **Purpose**: Web traffic load balancer and application delivery controller
+- **Components**:
+  - Application Gateway v2
+  - Public IP address
+  - HTTP/HTTPS listeners
+  - Backend pools and health probes
+- **Network**: 10.3.0.0/16
 
-1. **Initialize Terraform**:
-   ```bash
-   terraform init
-   ```
+### 4. Azure AI Services - `terraform-ai-services/`
+- **Purpose**: AI and ML services for GenAI workloads
+- **Components**:
+  - Azure Machine Learning workspace
+  - Azure OpenAI Service
+  - Cognitive Services
+  - Container Registry
+  - Key Vault and Storage Account
+- **Models**: GPT-4o-mini, Text-Embedding-Ada-002
 
-2. **Plan the deployment**:
-   ```bash
-   terraform plan
-   ```
+## 🔧 Configuration
 
-3. **Apply the configuration**:
-   ```bash
-   terraform apply
-   ```
-
-4. **Confirm the deployment** by typing `yes` when prompted.
-
-### 5. Verify Deployment
-Check the created resources in the Azure portal or using Azure CLI:
-```bash
-az group list --output table
-```
-
-## File Structure
-
-- `main.tf` - Main Terraform configuration with resource definitions
-- `variables.tf` - Variable declarations
+Each service directory contains:
+- `main.tf` - Main resource definitions
+- `variables.tf` - Input variables
 - `outputs.tf` - Output values
-- `terraform.tfvars.example` - Example variables file
-- `README.md` - This documentation
 
-## Resources Created
+### Common Variables
 
-- **Resource Group**: Container for all resources
-- **Virtual Network**: Network infrastructure with 10.0.0.0/16 address space
-- **Subnet**: Internal subnet with 10.0.2.0/24 address space
+All services share these common variables:
+- `project_name` - Base name for resources (default: "ocbc-genai")
+- `location` - Azure region (default: "Southeast Asia")
+- `environment` - Environment tag (default: "dev")
+- `tags` - Common resource tags
 
-## Cleanup
+## 🌐 Network Architecture
 
-To destroy the created resources:
-```bash
-terraform destroy
+The infrastructure uses separate virtual networks for each service:
+
+```
+┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐
+│   AKS VNet      │  │   APIM VNet     │  │  App GW VNet    │  │ AI Services RG  │
+│  10.1.0.0/16    │  │  10.2.0.0/16    │  │  10.3.0.0/16    │  │  (No VNet)      │
+│                 │  │                 │  │                 │  │                 │
+│ ┌─────────────┐ │  │ ┌─────────────┐ │  │ ┌─────────────┐ │  │ ┌─────────────┐ │
+│ │ AKS Subnet  │ │  │ │ APIM Subnet │ │  │ │AppGW Subnet │ │  │ │  ML/AI      │ │
+│ │10.1.1.0/24  │ │  │ │10.2.1.0/24  │ │  │ │10.3.1.0/24  │ │  │ │ Services    │ │
+│ └─────────────┘ │  │ └─────────────┘ │  │ └─────────────┘ │  │ └─────────────┘ │
+│ └─────────────┘ │  │ └─────────────┘ │  │ └─────────────┘ │  │ └─────────────┘ │
+└─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────────┘
 ```
 
-## Customization
+## 📊 Outputs
 
-You can extend this project by:
-- Adding virtual machines
-- Creating storage accounts
-- Setting up network security groups
-- Adding load balancers
-- Implementing Azure Key Vault
+Each service provides outputs that can be used by other services or applications.
 
-## Best Practices
+## 🔒 Security Considerations
 
-1. Always run `terraform plan` before `terraform apply`
-2. Use version control for your Terraform files
-3. Store state files securely (consider using Azure Storage backend)
-4. Use consistent naming conventions
-5. Tag all resources appropriately
+1. **Managed Identities**: All services use system-assigned managed identities
+2. **Key Vault**: Secrets stored in Azure Key Vault
+3. **Network Security**: Services deployed in isolated virtual networks
+4. **Access Controls**: RBAC configured for service access
+5. **Monitoring**: Application Insights and Log Analytics enabled
 
-## Troubleshooting
+## 💰 Cost Optimization
 
-- **Authentication issues**: Ensure you're logged into Azure CLI
-- **Permission errors**: Verify you have contributor access to the subscription
-- **Resource conflicts**: Check if resource names already exist in Azure
+- AKS: Auto-scaling enabled (1-5 nodes)
+- APIM: Developer tier for testing
+- Application Gateway: Standard v2 with minimal capacity
+- AI Services: Standard tiers with pay-as-you-go
+
+## 🤝 Contributing
+
+1. Create feature branch
+2. Make changes
+3. Test deployment in dev environment  
+4. Submit pull request
+
+## 📞 Support
+
+For questions or issues:
+- Create GitHub issue
+- Contact: OCBC GenAI Team
