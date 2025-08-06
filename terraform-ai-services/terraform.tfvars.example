@@ -1,7 +1,7 @@
 # AI Services Configuration Example
 # Copy this to terraform.tfvars and customize
 
-project_name            = "ocbc-genai"
+project_name            = "genai-project"
 location               = "Southeast Asia"
 environment            = "dev"
 cognitive_services_sku = "S0"
@@ -9,7 +9,7 @@ openai_sku            = "S0"
 
 tags = {
   Environment = "dev"
-  Project     = "OCBC-GenAI-AI"
-  Owner       = "OCBC"
+  Project     = "GenAI-AI"
+  Owner       = "DevOps-Team"
   CostCenter  = "IT"
 }

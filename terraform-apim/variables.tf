@@ -1,7 +1,7 @@
 variable "resource_group_name" {
   description = "Name of the resource group"
   type        = string
-  default     = "rg-ocbc-genai"
+  default     = "rg-genai-project"
 }
 
 variable "location" {
@@ -19,7 +19,7 @@ variable "environment" {
 variable "project_name" {
   description = "Name of the project"
   type        = string
-  default     = "ocbc-genai"
+  default     = "genai-project"
 }
 
 variable "tags" {
@@ -27,8 +27,8 @@ variable "tags" {
   type        = map(string)
   default = {
     Environment = "dev"
-    Project     = "OCBC-GenAI-APIM"
-    Owner       = "OCBC"
+    Project     = "GenAI-APIM"
+    Owner       = "DevOps-Team"
     CostCenter  = "IT"
   }
 }
@@ -36,13 +36,13 @@ variable "tags" {
 variable "publisher_name" {
   description = "Publisher name for API Management"
   type        = string
-  default     = "OCBC GenAI Team"
+  default     = "GenAI Team"
 }
 
 variable "publisher_email" {
   description = "Publisher email for API Management"
   type        = string
-  default     = "admin@ocbc.com"
+  default     = "admin@company.com"
 }
 
 variable "apim_sku" {

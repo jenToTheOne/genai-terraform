@@ -1,16 +1,16 @@
 # APIM Configuration Example
 # Copy this to terraform.tfvars and customize
 
-project_name    = "ocbc-genai"
+project_name    = "genai-project"
 location       = "Southeast Asia"  
 environment    = "dev"
-publisher_name = "OCBC GenAI Team"
-publisher_email = "genai-team@ocbc.com"
+publisher_name = "GenAI Team"
+publisher_email = "genai-team@company.com"
 apim_sku       = "Developer_1"
 
 tags = {
   Environment = "dev"
-  Project     = "OCBC-GenAI-APIM"
-  Owner       = "OCBC"
+  Project     = "GenAI-APIM"
+  Owner       = "DevOps-Team"
   CostCenter  = "IT"
 }

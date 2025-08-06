@@ -1,6 +1,6 @@
 # GenAI Terraform Infrastructure
 
-This repository contains Terraform configurations for deploying Azure infrastructure components for GenAI. The infrastructure is organized into separate modules for different Azure services.
+This repository contains Terraform configurations for deploying Azure infrastructure components for GenAI initiative. The infrastructure is organized into separate modules for different Azure services.
 
 ## 🏗️ Project Structure
 
@@ -107,7 +107,7 @@ Each service directory contains:
 ### Common Variables
 
 All services share these common variables:
-- `project_name` - Base name for resources (default: "ocbc-genai")
+- `project_name` - Base name for resources (default: "genai-project")
 - `location` - Azure region (default: "Southeast Asia")
 - `environment` - Environment tag (default: "dev")
 - `tags` - Common resource tags
@@ -159,4 +159,4 @@ Each service provides outputs that can be used by other services or applications
 
 For questions or issues:
 - Create GitHub issue
-- Contact: OCBC GenAI Team
+- Contact: GenAI Team

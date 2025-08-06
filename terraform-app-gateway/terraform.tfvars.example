@@ -1,7 +1,7 @@
 # Application Gateway Configuration Example
 # Copy this to terraform.tfvars and customize
 
-project_name     = "ocbc-genai"
+project_name     = "genai-project"
 location        = "Southeast Asia"
 environment     = "dev"
 appgw_sku_name  = "Standard_v2"
@@ -10,7 +10,7 @@ appgw_capacity  = 2
 
 tags = {
   Environment = "dev"
-  Project     = "OCBC-GenAI-AppGW"
-  Owner       = "OCBC"
+  Project     = "GenAI-AppGW"
+  Owner       = "DevOps-Team"
   CostCenter  = "IT"
 }
