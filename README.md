@@ -1,4 +1,4 @@
-# OCBC GenAI Terraform Infrastructure
+# GenAI Terraform Infrastructure
 
 This repository contains Terraform configurations for deploying Azure infrastructure components for OCBC's GenAI initiative. The infrastructure is organized into separate modules for different Azure services.
 
