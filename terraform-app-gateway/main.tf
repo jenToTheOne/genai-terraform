@@ -24,8 +24,8 @@ resource "azurerm_resource_group" "appgw_rg" {
 
 # Create virtual network for Application Gateway
 resource "azurerm_virtual_network" "appgw_vnet" {
-  name                = "${var.project_name}-appgw-vnet"
-  address_space       = ["10.3.0.0/16"]
+  name                = "${var.project_name}-${var.vnet_name}"
+  address_space       = var.vnet_address_space
   location            = azurerm_resource_group.appgw_rg.location
   resource_group_name = azurerm_resource_group.appgw_rg.name
   tags                = var.tags
@@ -33,10 +33,10 @@ resource "azurerm_virtual_network" "appgw_vnet" {
 
 # Create subnet for Application Gateway
 resource "azurerm_subnet" "appgw_subnet" {
-  name                 = "appgw-subnet"
+  name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.appgw_rg.name
   virtual_network_name = azurerm_virtual_network.appgw_vnet.name
-  address_prefixes     = ["10.3.1.0/24"]
+  address_prefixes     = var.subnet_address_prefixes
 }
 
 # Create public IP for Application Gateway

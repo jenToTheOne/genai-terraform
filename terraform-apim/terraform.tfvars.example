@@ -8,6 +8,12 @@ publisher_name = "GenAI Team"
 publisher_email = "genai-team@company.com"
 apim_sku       = "Developer_1"
 
+# Network Configuration
+vnet_address_space      = ["10.2.0.0/16"]
+subnet_address_prefixes = ["10.2.1.0/24"]
+vnet_name              = "apim-vnet"
+subnet_name            = "apim-subnet"
+
 tags = {
   Environment = "dev"
   Project     = "GenAI-APIM"

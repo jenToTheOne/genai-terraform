@@ -8,6 +8,12 @@ kubernetes_version = "1.28.9"
 node_count        = 2
 node_vm_size      = "Standard_D2s_v3"
 
+# Network Configuration
+vnet_address_space      = ["10.1.0.0/16"]
+subnet_address_prefixes = ["10.1.1.0/24"]
+vnet_name              = "aks-vnet"
+subnet_name            = "aks-nodes-subnet"
+
 tags = {
   Environment = "dev"
   Project     = "GenAI-AKS"

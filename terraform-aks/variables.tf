@@ -50,3 +50,28 @@ variable "node_vm_size" {
   type        = string
   default     = "Standard_D2s_v3"
 }
+
+# Network Configuration Variables
+variable "vnet_address_space" {
+  description = "Address space for the virtual network"
+  type        = list(string)
+  default     = ["10.1.0.0/16"]
+}
+
+variable "subnet_address_prefixes" {
+  description = "Address prefixes for the AKS nodes subnet"
+  type        = list(string)
+  default     = ["10.1.1.0/24"]
+}
+
+variable "vnet_name" {
+  description = "Name of the virtual network (will be prefixed with project name)"
+  type        = string
+  default     = "aks-vnet"
+}
+
+variable "subnet_name" {
+  description = "Name of the subnet for AKS nodes"
+  type        = string
+  default     = "aks-nodes-subnet"
+}

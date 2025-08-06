@@ -25,8 +25,8 @@ resource "azurerm_resource_group" "aks_rg" {
 
 # Create virtual network for AKS
 resource "azurerm_virtual_network" "aks_vnet" {
-  name                = "${var.project_name}-aks-vnet"
-  address_space       = ["10.1.0.0/16"]
+  name                = "${var.project_name}-${var.vnet_name}"
+  address_space       = var.vnet_address_space
   location            = azurerm_resource_group.aks_rg.location
   resource_group_name = azurerm_resource_group.aks_rg.name
   tags                = var.tags
@@ -34,10 +34,10 @@ resource "azurerm_virtual_network" "aks_vnet" {
 
 # Create subnet for AKS nodes
 resource "azurerm_subnet" "aks_subnet" {
-  name                 = "aks-nodes-subnet"
+  name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.aks_rg.name
   virtual_network_name = azurerm_virtual_network.aks_vnet.name
-  address_prefixes     = ["10.1.1.0/24"]
+  address_prefixes     = var.subnet_address_prefixes
 }
 
 # Create Log Analytics Workspace for AKS monitoring

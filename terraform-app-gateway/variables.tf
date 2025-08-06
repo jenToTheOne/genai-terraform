@@ -50,3 +50,28 @@ variable "appgw_capacity" {
   type        = number
   default     = 2
 }
+
+# Network Configuration Variables
+variable "vnet_address_space" {
+  description = "Address space for the virtual network"
+  type        = list(string)
+  default     = ["10.3.0.0/16"]
+}
+
+variable "subnet_address_prefixes" {
+  description = "Address prefixes for the Application Gateway subnet"
+  type        = list(string)
+  default     = ["10.3.1.0/24"]
+}
+
+variable "vnet_name" {
+  description = "Name of the virtual network (will be prefixed with project name)"
+  type        = string
+  default     = "appgw-vnet"
+}
+
+variable "subnet_name" {
+  description = "Name of the subnet for Application Gateway"
+  type        = string
+  default     = "appgw-subnet"
+}
